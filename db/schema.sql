@@ -9,10 +9,9 @@ CREATE TABLE departments (
 
 CREATE TABLE roles (
     id INTEGER AUTO_INCREMENT PRIMARY KEY,
-    tile VARCHAR(30),
+    title VARCHAR(30),
     salary DECIMAL,
-    department_id,
-    INDEX dep_ind (department_id),
+    department_id INTEGER,
     CONSTRAINT fk_department
     FOREIGN KEY (department_id)
     REFERENCES departments(id)
@@ -28,5 +27,5 @@ CREATE TABLE employees (
     CONSTRAINT fk_role
     FOREIGN KEY (role_id)
     REFERENCES roles(id),
-
+    manager_id INTEGER
 );
