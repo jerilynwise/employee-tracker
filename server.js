@@ -28,6 +28,14 @@ const promptMenu = () => {
         ]) .then((answers) => {
             const { tasks } = answers;
 
+            if (tasks === "View all Departments") {
+                viewAllDepartments();
+            }
+
+            if (tasks === "View All Roles") {
+                viewAllRoles();
+            }
+
             if (tasks === "View all Employees") {
                 viewAllEmployees();
             }
@@ -40,17 +48,13 @@ const promptMenu = () => {
                 updateEmployeeRole();
             }
 
-            if (tasks === "View All Roles") {
-                viewAllRoles();
-            }
+
 
             if (tasks === "Add Role") {
                 addRole();
             }
 
-            if (tasks === "View all Departments") {
-                viewAllDepartments();
-            }
+
 
             if (tasks === "Add Department") {
                 addDepartment();
@@ -62,11 +66,32 @@ const promptMenu = () => {
         });
     };
 
+    function viewAllDepartments() {
+        const sql = `SELECT * FROM department`;
+        db.query(sql, (err, rows) => {
+            if (err) console.log(err)
+            console.table(rows);
+            promptMenu();
+        });
+    };
+
+    function viewAllRoles() {
+        const sql = `SELECT role.id, role.title, role.salary, department.name AS department 
+        FROM role
+        LEFT JOIN department ON role.department_id = department.id`
+        db.query(sql, (err, rows) => {
+            if (err) console.log(err)
+            console.table(rows);
+            promptMenu();
+        });
+    }
 
     function viewAllEmployees() {
-     const sql = `SELECT employees.id, employees.first_name, employees.last_name, roles.title, roles.salary, departments.name AS department FROM employees 
-     LEFT JOIN roles ON employees.role_id = roles.id 
-     LEFT JOIN departments ON roles.department_id = departments.id `
+     const sql = `SELECT employee.id, employee.first_name, employee.last_name, role.title, role.salary, department.name AS department, CONCAT(manager.first_name, ' ', manager.last_name) AS manager
+     FROM employee
+     LEFT JOIN role ON employee.role_id = role.id 
+     LEFT JOIN department ON role.department_id = department.id 
+     LEFT JOIN employee ON manager.id = employee.manager_id`
         db.query(sql, (err, rows) => {
             if (err) console.log(err)
             console.table(rows);
@@ -75,14 +100,7 @@ const promptMenu = () => {
     }
 
 
-    function viewAllDepartments() {
-        const sql = `SELECT * FROM departments`;
-        db.query(sql, (err, rows) => {
-            if (err) console.log(err)
-            console.table(rows);
-            promptMenu();
-        });
-    };
+ 
 
 
     function updateEmployeeRole() {
