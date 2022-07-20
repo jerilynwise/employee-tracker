@@ -8,7 +8,6 @@ const mysql = require('mysql2');
 
 
 //promptMenu allows user to choose which field they would like to view, add, or update
-
 const promptMenu = () => {
     inquirer.prompt([
         {
@@ -44,6 +43,10 @@ const promptMenu = () => {
                 addDepartment();
             }
 
+            if (tasks === "Add Role") {
+                addRole();
+            }
+
             if (tasks === "Add Employee") {
                 addEmployee();
             }
@@ -51,15 +54,6 @@ const promptMenu = () => {
             if (tasks === "Update Employee Role") {
                 updateEmployeeRole();
             }
-
-
-
-            if (tasks === "Add Role") {
-                addRole();
-            }
-
-
-
 
             if (tasks === "Quit") {
                 connection.end()
@@ -138,10 +132,42 @@ const promptMenu = () => {
         })
     }
 
+    //function to add role- name, salary, and department it belongs to
+    //currently dept is a number would like to make into seeing all of the departments to choose from
+    function addRole() {
+        inquirer.prompt([
+            {
+            type:'input',
+            name:'title',
+            message: 'What role would you like to add?',
+            },
+            {
+                type: 'input',
+                name: 'salary',
+                message: 'What salary does this role make?',
+            },
+            {
+                type:'input',
+                name: 'department_id',
+                message: 'What department does this role report to?',
+            }]).then(answers => {
+                let title = answers.title 
+                let salary = answers.salary
+                let department_id = answers.department_id
+                const sql = `INSERT INTO role (title, salary, department_id) VALUES (?,?,?);`
+                const params = [title, salary, department_id]
+                db.query(sql, params, (err,rows) => {
+                    if (err) console.log(err)
+                    console.table(rows);
+                    viewAllRoles()
+                });
+        })
+    }
+
 
  
 
-
+    //function to update an existing employee, pulls choices into an array and then calls the update role function below
     function updateEmployeeRole() {
        const sql = `SELECT employees.id, employees.first_name, employees.last_name FROM employees`
         db.query(sql, (err, rows) => {
@@ -167,6 +193,7 @@ const promptMenu = () => {
         });
     }
 
+    //take the array made in updateEmployee and pushes t the database to update the role
     function updateRole(employee_id, roleChoices) {
         inquirer.prompt ([{
             type:'list',
