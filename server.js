@@ -237,7 +237,7 @@ const promptMenu = () => {
             choices: roleChoices,
         }])
         .then(answers => {
-            let sql = 'UPDATE employees SET role_id = ? WHERE id = ?'
+            let sql = 'UPDATE employee SET role_id = ? WHERE id = ?'
             const params = [answers.role, employee_id]
             db.query(sql, params, (err, rows) => {
                 if (err) console.log(err);

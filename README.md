@@ -1,7 +1,7 @@
 # Employee Tracker
   ## Description
     This application is a command line app using Node.js, Inquirer, and MySQL. 
-    It gives nondevelopers an easy wat to interact with information stored in this database.
+    It gives nondevelopers an easy way to interact with information stored in this database.
  </br>
   
   ## Table of Contents
@@ -32,8 +32,9 @@
   ## Tests 
   N/A
 
-  ## Github Repository
+  ## Links
   [Github Repo](https://github.com/jerilynwise/employee-tracker)
+  [Link to Video](https://drive.google.com/file/d/1OZ127nfhpDgkOC4ATO9Jl5-1DwRUxNu4/view)
   
   ## Questions 
   If you have any further questions please don't heasitate to reach out via Github jerilynwise or directly by email jerilynwisedesigns@gmail.com
