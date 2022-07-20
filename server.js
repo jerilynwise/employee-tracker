@@ -204,20 +204,20 @@ const promptMenu = () => {
 
     //function to update an existing employee, pulls choices into an array and then calls the update role function below
     function updateEmployeeRole() {
-       const sql = `SELECT employees.id, employees.first_name, employees.last_name FROM employees`
+       const sql = `SELECT employee.id, employee.first_name, employee.last_name FROM employee`
         db.query(sql, (err, rows) => {
             if (err) console.log(err);
-            const employees = rows.map(({id, first_name, last_name}) => ({
+            const employee = rows.map(({id, first_name, last_name}) => ({
                 value: id, name: `${first_name} ${last_name}`
             }))
             inquirer.prompt ([{
                 type:'list',
                 name: 'employee_id',
                 message: `Which employees role do you want to update?`,
-                choices: employees,
+                choices: employee,
             }]).then (answers => {
                 let employee_id = answers.employee_id
-                const sql = `SELECT roles.id, roles.title, roles.salary FROM roles`
+                const sql = `SELECT role.id, role.title, role.salary FROM role`
                 db.query(sql, (err, rows) => {
                     let roleChoices = rows.map (({id, title}) => ({
                         value: id, name: `${title}`
