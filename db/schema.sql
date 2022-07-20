@@ -1,5 +1,3 @@
--- DROP TABLE IF EXISTS departments;
--- DROP TABLE IF EXISTS roles;
 DROP TABLE IF EXISTS employees;
 
 CREATE TABLE department (
@@ -28,8 +26,7 @@ CREATE TABLE employee (
     FOREIGN KEY (role_id)
     REFERENCES role(id),
     manager_id INTEGER,
-    INDEX man_ind (manager_id),
-    CONSTRAINT fk_manager
+    CONSTRAINT fk_manager_id
     FOREIGN KEY (manager_id)
     REFERENCES employee(id)
 );

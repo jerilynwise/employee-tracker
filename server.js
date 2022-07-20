@@ -40,6 +40,10 @@ const promptMenu = () => {
                 viewAllEmployees();
             }
 
+            if (tasks === "Add Department") {
+                addDepartment();
+            }
+
             if (tasks === "Add Employee") {
                 addEmployee();
             }
@@ -56,9 +60,6 @@ const promptMenu = () => {
 
 
 
-            if (tasks === "Add Department") {
-                addDepartment();
-            }
 
             if (tasks === "Quit") {
                 connection.end()
@@ -66,6 +67,7 @@ const promptMenu = () => {
         });
     };
 
+    //Pulls department id and department name 
     function viewAllDepartments() {
         const sql = `SELECT * FROM department`;
         db.query(sql, (err, rows) => {
@@ -75,6 +77,7 @@ const promptMenu = () => {
         });
     };
 
+    //Pulls role information and turns the department id in role table into the name from the department table
     function viewAllRoles() {
         const sql = `SELECT role.id, role.title, role.salary, department.name AS department 
         FROM role
@@ -84,19 +87,55 @@ const promptMenu = () => {
             console.table(rows);
             promptMenu();
         });
-    }
+    };
 
+    //Pulls the employee first and last name from employee table, then ties the role table in to get title, salray, and depart name from the depart table, 
+    //pull manager first name and last name together and put on the left side table
     function viewAllEmployees() {
-     const sql = `SELECT employee.id, employee.first_name, employee.last_name, role.title, role.salary, department.name AS department, CONCAT(manager.first_name, ' ', manager.last_name) AS manager
+     const sql = `SELECT employee.id,
+      employee.first_name, 
+      employee.last_name, 
+      role.title, 
+      role.salary, 
+      department.name AS department,
+      CONCAT (manager.first_name, manager.last_name) AS manager
      FROM employee
      LEFT JOIN role ON employee.role_id = role.id 
      LEFT JOIN department ON role.department_id = department.id 
-     LEFT JOIN employee ON manager.id = employee.manager_id`
+     LEFT JOIN employee manager ON employee.manager_id = manager.id
+     `
         db.query(sql, (err, rows) => {
             if (err) console.log(err)
             console.table(rows);
             promptMenu();
         });
+    };
+
+    //function to add a department into the database
+    function addDepartment() {
+        inquirer.prompt([
+            {
+            type: 'input',
+            name: 'addDepart',
+            message: 'What deparment do you want to add?',
+            validate: addDepart => {
+                if (addDepart) {
+                    return true;
+                }else {
+                    console.log('Please enter a department');
+                    return false;
+                }
+            }
+        }]).then(answers => {
+            let department_name = answers.addDepart
+            const sql = `INSERT INTO department (name) VALUES (?)`;
+            const params = [department_name]
+            db.query(sql, params, (err, rows) => {
+                if (err) console.log(err)
+                console.table(rows);
+                viewAllDepartments();
+            });
+        })
     }
 
 
