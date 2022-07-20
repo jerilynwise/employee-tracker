@@ -5,12 +5,12 @@
   
   ## Table of Contents
 
-  * [Installation](#🧑🏻‍🔧-installation)</br>
-  * [Usage](#👨‍💻-usage)</br>
-  * [License](#🧾-license)</br>
-  * [Contribuation](#👯‍♀️-contributing)</br>
-  * [Tests](#📝-tests)</br>
-  * [Questions](#🤷‍♀️-questions)</br>
+  * [Installation](#🧑🏻‍🔧-Installation)</br>
+  * [Usage](#👨‍💻-Usage)</br>
+  * [License](#🧾-License)</br>
+  * [Contribuation](#👯‍♀️-Contributing)</br>
+  * [Tests](#📝-Tests)</br>
+  * [Questions](#🤷‍♀️-Questions)</br>
 
   ## 🧑🏻‍🔧 Installation
     To run this application, you will need to clone from the github repository, ensure you have MySQL downloaded to your desktop, if not then you can follow along with the instructions provide on this website: https://coding-boot-camp.github.io/full-stack/mysql/mysql-installation-guideopen.
