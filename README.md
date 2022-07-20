@@ -1,11 +1,11 @@
 # Employee Tracker
   ## Description
-    This application is a command line app using Node.js, Inquirer, and MySQL. It gives nondevelopers an easy wat to interact with information stored in this database.
+    This application is a command line app using Node.js, Inquirer, and MySQL. It gives nondevelopers an easy way to interact with information stored in this database.
  </br>
   
   ## Table of Contents
 
-  * [Installation](#🧑🏻‍🔧-Installation)</br>
+  * [Installation](#🧑🏻‍🔧-installation)</br>
   * [Usage](#👨‍💻-Usage)</br>
   * [License](#🧾-License)</br>
   * [Contribuation](#👯‍♀️-Contributing)</br>
