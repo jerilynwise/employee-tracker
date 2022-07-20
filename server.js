@@ -164,7 +164,42 @@ const promptMenu = () => {
         })
     }
 
-
+    //function to add a new employee
+    function addEmployee() {
+        inquirer.prompt([
+            {
+                type:'input',
+                name:'first_name',
+                message: 'What is the first name of the new employee?',
+                },
+                {
+                    type: 'input',
+                    name: 'last_name',
+                    message: 'What is the last name of the new employee?',
+                },
+                {
+                    type:'input',
+                    name: 'role_id',
+                    message: 'What is the employees role?',
+                },
+                {
+                    type:'input',
+                    name: 'manager_id',
+                    message: 'Who is the reporting manager?',
+                }]).then(answers => {
+                    let first_name = answers.first_name
+                    let last_name = answers.last_name
+                    let role_id = answers.role_id
+                    let manager_id = answers.manager_id
+                    const sql = `INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES (?,?,?,?);`
+                    const params = [first_name, last_name, role_id, manager_id]
+                    db.query(sql, params, (err,rows) => {
+                        if (err) console.log(err)
+                        console.table(rows);
+                        viewAllEmployees()
+                    });
+                })
+    }
  
 
     //function to update an existing employee, pulls choices into an array and then calls the update role function below
@@ -212,13 +247,5 @@ const promptMenu = () => {
     }
      
 
-
-
-
-
-
-
-
-
-
+    //calls the inital menu after connecting to the sql database
     promptMenu();
